@@ -6,10 +6,14 @@ class_name GarbagePickupable
 
 var picked_up: bool = false
 signal on_dropped
-var player: Player
+var saved_player: Player
 
 func on_e_interact(player: Player) -> Signal: # Item is now "picked up" by the player
-	self.player = player # TODO TEMPORARY
+	self.saved_player = player # TODO TEMPORARY
+	if player.held_item_controller.held_item:
+		print("player is already holding something, cannot pick up")
+		return get_tree().process_frame
+
 	# Do things
 	picked_up = true
 	player.held_item_controller.pick_up_item(self)
@@ -34,5 +38,6 @@ func _process(_delta: float) -> void:
 		if Input.is_action_just_pressed("interact"):
 			# Throw it
 			picked_up = false
-			player.held_item_controller.drop_item()
+			saved_player.held_item_controller.drop_item()
+			await get_tree().process_frame
 			on_dropped.emit()

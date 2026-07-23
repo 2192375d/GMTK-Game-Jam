@@ -4,13 +4,16 @@ extends Node3D
 var held_item: Interactable
 
 func pick_up_item(interactable: Interactable) -> void:
+	print("picking up item", interactable.name)
 	held_item = interactable
 	
 	interactable.freeze = true
 	interactable.collision_shape.disabled = true
 
 func drop_item() -> void:
+	print("attemptiong to drop...")
 	if held_item:
+		print("dropping item", held_item.name)
 		held_item.freeze = false
 		held_item.collision_shape.disabled = false
 		held_item = null

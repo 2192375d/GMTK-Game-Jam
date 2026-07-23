@@ -6,9 +6,6 @@ var ignore_interactions: bool # Used when an item is already held, because press
 
 signal on_space_interact(interactable: Interactable)
 
-signal on_e_interact(interactable: Interactable)
-signal on_e_interact_finished(interactable: Interactable)
-
 @onready var player: Player = $".."
 
 # Updates what is lit up (and unlights whatever is visible)
@@ -42,21 +39,16 @@ func update_glowy():
 	
 	
 func check_for_interaction():
-	if closest_interactable: 
+	if not ignore_interactions and  closest_interactable: 
 		# So you cant immediately interact with the next object
 		await get_tree().process_frame
 		if Input.is_action_just_pressed("space"):
 			closest_interactable.on_space_interact(player)
 			on_space_interact.emit(closest_interactable)
 		if Input.is_action_just_pressed("interact"):
-			print("did this do anything")
+			print("interact pressed!")
 			ignore_interactions = true
 			
-			# Notify everyone that something got interacted with
-			var old_closest_interactable = closest_interactable
-			on_e_interact.emit(old_closest_interactable)
-			# Wait for the interaction to finish before we can interact with another object
 			await closest_interactable.on_e_interact(player)
-			on_e_interact_finished.emit(old_closest_interactable)
 			
 			ignore_interactions = false
