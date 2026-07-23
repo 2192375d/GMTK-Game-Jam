@@ -10,10 +10,14 @@ config_version=5
 
 [application]
 
-config/name="New Game Project"
-run/main_scene="uid://bco2lnrats76t"
+config/name="GMTK Game Jam"
+run/main_scene="uid://bshu6j75jogwf"
 config/features=PackedStringArray("4.7", "Forward Plus")
 config/icon="res://icon.svg"
+
+[autoload]
+
+LevelRegistry="*uid://c5ryxh5qf5rjf"
 
 [display]
 
@@ -22,7 +26,7 @@ window/stretch/mode="viewport"
 
 [gui]
 
-theme/custom_font="uid://bhriy7wm4p2w5"
+theme/custom_font="uid://u5ij1jobsqog"
 
 [input]
 
