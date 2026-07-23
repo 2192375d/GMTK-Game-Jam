@@ -2,8 +2,10 @@ extends CharacterBody3D
 
 const SPEED = 5.0
 const PUSH_FORCE: float = 1.0
+var pause_movement:= false
 
 func _physics_process(delta: float) -> void:
+	if pause_movement: return
 	# Get the input direction and handle the movement/deceleration.
 	# As good practice, you should replace UI actions with custom gameplay actions.
 	var input_dir := Input.get_vector("left", "right", "up", "down")
@@ -30,3 +32,14 @@ func _physics_process(delta: float) -> void:
 			push_dir = push_dir.normalized()
 			
 			collider.apply_central_impulse(push_dir * PUSH_FORCE * delta)
+
+func _ready() -> void:
+	$"Interaction Area".on_space_interact.connect(
+		func(interactable: Interactable):
+			if interactable is Pickupable:
+				pause_movement = true
+				await get_tree().create_timer(0.5).timeout
+				pause_movement = false
+				# Play kick animation
+	)
+	

@@ -19,7 +19,6 @@ func on_space_interact() -> void:
 	await get_tree().create_timer(0.5).timeout
 	on_cooldown = false
 	
-
 func _process(_delta: float) -> void:
 	if picked_up:
 		await get_tree().process_frame

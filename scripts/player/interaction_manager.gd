@@ -4,8 +4,10 @@ var all_interactables: Array[Interactable]
 var closest_interactable: Interactable
 var ignore_interactions: bool # Used when an item is already held, because pressing interact again would "throw" the item until it's dropped
 
-signal on_interact(interactable: Interactable)
-signal on_interact_finished(interactable: Interactable)
+signal on_space_interact(interactable: Interactable)
+
+signal on_e_interact(interactable: Interactable)
+signal on_e_interact_finished(interactable: Interactable)
 
 # Updates what is lit up (and unlights whatever is visible)
 # If we ignore interactions, it will always be unlit
@@ -43,15 +45,16 @@ func check_for_interaction():
 		await get_tree().process_frame
 		if Input.is_action_just_pressed("space"):
 			closest_interactable.on_space_interact()
+			on_space_interact.emit(closest_interactable)
 		if Input.is_action_just_pressed("interact"):
 			print("did this do anything")
 			ignore_interactions = true
 			
 			# Notify everyone that something got interacted with
 			var old_closest_interactable = closest_interactable
-			on_interact.emit(old_closest_interactable)
+			on_e_interact.emit(old_closest_interactable)
 			# Wait for the interaction to finish before we can interact with another object
 			await closest_interactable.on_e_interact()
-			on_interact_finished.emit(old_closest_interactable)
-			print("and did this finish immediate afterL?")
+			on_e_interact_finished.emit(old_closest_interactable)
+			
 			ignore_interactions = false

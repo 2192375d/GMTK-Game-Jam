@@ -3,7 +3,7 @@ extends Node3D
 var held_item: Pickupable
 
 func _ready() -> void:
-	$"../Interaction Area".on_interact.connect(
+	$"../Interaction Area".on_e_interact.connect(
 		func(interactable: Interactable):
 			if interactable is Pickupable:
 				print("Does this run")
@@ -13,7 +13,7 @@ func _ready() -> void:
 
 	)
 	
-	$"../Interaction Area".on_interact_finished.connect(
+	$"../Interaction Area".on_e_interact_finished.connect(
 		func(interactable: Interactable):
 			print("Did this do the thing", interactable, held_item)
 			if held_item == interactable:
@@ -24,6 +24,6 @@ func _ready() -> void:
 				
 	)
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	if held_item:
 		held_item.global_position = global_position
