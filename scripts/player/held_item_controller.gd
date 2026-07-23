@@ -1,28 +1,19 @@
+class_name HeldItemController
 extends Node3D
 
-var held_item: Pickupable
+var held_item: Interactable
 
-func _ready() -> void:
-	$"../Interaction Area".on_e_interact.connect(
-		func(interactable: Interactable):
-			if interactable is Pickupable:
-				print("Does this run")
-				held_item = interactable
-				interactable.freeze = true
-				interactable.collision_shape.disabled = true
-
-	)
+func pick_up_item(interactable: Interactable) -> void:
+	held_item = interactable
 	
-	$"../Interaction Area".on_e_interact_finished.connect(
-		func(interactable: Interactable):
-			print("Did this do the thing", interactable, held_item)
-			if held_item == interactable:
-				print("ah it probably didn't do that")
-				held_item.freeze = false
-				interactable.collision_shape.disabled = false
-				held_item = null
-				
-	)
+	interactable.freeze = true
+	interactable.collision_shape.disabled = true
+
+func drop_item() -> void:
+	if held_item:
+		held_item.freeze = false
+		held_item.collision_shape.disabled = false
+		held_item = null
 
 func _process(_delta: float) -> void:
 	if held_item:

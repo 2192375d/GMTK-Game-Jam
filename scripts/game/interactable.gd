@@ -20,8 +20,8 @@ func toggle_outline(toggle: bool):
 	outline.visible = toggle
 
 @abstract
-func on_e_interact() -> Signal
+func on_e_interact(player: Player) -> Signal
 
 @abstract
 # Always instantanous 
-func on_space_interact() -> void
+func on_space_interact(player: Player) -> void

@@ -5,6 +5,7 @@
 [ext_resource type="Script" uid="uid://mpjejuo715u3" path="res://scripts/player/interaction_manager.gd" id="3_aiccc"]
 [ext_resource type="Script" uid="uid://lhunffqsa8pb" path="res://scripts/player/held_item_controller.gd" id="4_1dpcr"]
 [ext_resource type="Script" uid="uid://dxclowwyevts2" path="res://scripts/game/pickupable.gd" id="4_7qlvo"]
+[ext_resource type="Script" uid="uid://qjkk4k1y6koo" path="res://scripts/player/player_movement.gd" id="5_1dpcr"]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_1i2hj"]
 size = Vector2(1.722, 2)
@@ -79,6 +80,9 @@ shape = SubResource("SphereShape3D_0pqje")
 [node name="Held Item Controller" type="Node3D" parent="Player" unique_id=1509292524]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.4, -0.233, 0)
 script = ExtResource("4_1dpcr")
+
+[node name="Movement" type="Node" parent="Player" unique_id=1628852448]
+script = ExtResource("5_1dpcr")
 
 [node name="AreaLight3D" type="OmniLight3D" parent="." unique_id=166368872]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7504666, 7.682129)

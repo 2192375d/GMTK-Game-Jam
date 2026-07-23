@@ -1,26 +1,17 @@
 extends CharacterBody3D
+class_name Player
 
-const SPEED = 5.0
 const PUSH_FORCE: float = 1.0
-var pause_movement:= false
+
+@onready var held_item_controller: HeldItemController = $"Held Item Controller"
+var pause_inputs:= false
 
 func _physics_process(delta: float) -> void:
-	if pause_movement: return
-	# Get the input direction and handle the movement/deceleration.
-	# As good practice, you should replace UI actions with custom gameplay actions.
-	var input_dir := Input.get_vector("left", "right", "up", "down")
-	var direction := (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
-	if direction:
-		velocity.x = direction.x * SPEED
-		velocity.z = direction.z * SPEED
-		$"Held Item Controller".position.x = 0.4 if direction.x > 0 else -0.4
-	else:
-		velocity.x = move_toward(velocity.x, 0, SPEED)
-		velocity.z = move_toward(velocity.z, 0, SPEED)
-
+	if pause_inputs: return
+	velocity = $Movement.get_movement(transform)
 	move_and_slide()
-	
-	# Push all stuff that is in the way of the player
+
+func push_things(delta: float):
 	for i in get_slide_collision_count():
 		var collision = get_slide_collision(i)
 		var collider = collision.get_collider()
@@ -32,14 +23,3 @@ func _physics_process(delta: float) -> void:
 			push_dir = push_dir.normalized()
 			
 			collider.apply_central_impulse(push_dir * PUSH_FORCE * delta)
-
-func _ready() -> void:
-	$"Interaction Area".on_space_interact.connect(
-		func(interactable: Interactable):
-			if interactable is Pickupable:
-				pause_movement = true
-				await get_tree().create_timer(0.5).timeout
-				pause_movement = false
-				# Play kick animation
-	)
-	

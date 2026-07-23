@@ -9,6 +9,8 @@ signal on_space_interact(interactable: Interactable)
 signal on_e_interact(interactable: Interactable)
 signal on_e_interact_finished(interactable: Interactable)
 
+@onready var player: Player = $".."
+
 # Updates what is lit up (and unlights whatever is visible)
 # If we ignore interactions, it will always be unlit
 func _process(_delta: float) -> void:
@@ -44,7 +46,7 @@ func check_for_interaction():
 		# So you cant immediately interact with the next object
 		await get_tree().process_frame
 		if Input.is_action_just_pressed("space"):
-			closest_interactable.on_space_interact()
+			closest_interactable.on_space_interact(player)
 			on_space_interact.emit(closest_interactable)
 		if Input.is_action_just_pressed("interact"):
 			print("did this do anything")
@@ -54,7 +56,7 @@ func check_for_interaction():
 			var old_closest_interactable = closest_interactable
 			on_e_interact.emit(old_closest_interactable)
 			# Wait for the interaction to finish before we can interact with another object
-			await closest_interactable.on_e_interact()
+			await closest_interactable.on_e_interact(player)
 			on_e_interact_finished.emit(old_closest_interactable)
 			
 			ignore_interactions = false
