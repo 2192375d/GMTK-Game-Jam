@@ -1,6 +1,111 @@
 [gd_scene format=3 uid="uid://bshu6j75jogwf"]
 
-[ext_resource type="Script" uid="uid://b0ty32plikcic" path="res://scripts/game.gd" id="1_uwrxv"]
+[ext_resource type="Script" uid="uid://b0ty32plikcic" path="res://scripts/game/game.gd" id="1_uwrxv"]
 
-[node name="Game" type="Node" unique_id=1785000186]
+[sub_resource type="Animation" id="Animation_yqjtg"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ColorRect:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_lnu2h"]
+resource_name = "flash"
+length = 0.06954358
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ColorRect:color")
+tracks/0/interp = 2
+tracks/0/loop_wrap = false
+tracks/0/keys = {
+"times": PackedFloat32Array(0.0005531794, 0.021295486, 0.06666667),
+"transitions": PackedFloat32Array(3.0191429, 1, 0.28400415),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_lbhrr"]
+_data = {
+&"RESET": SubResource("Animation_yqjtg"),
+&"flash": SubResource("Animation_lnu2h")
+}
+
+[node name="Game" type="Node" unique_id=396159062 node_paths=PackedStringArray("countdown_label", "shot_animation", "photo_viewport", "photo_camera", "photo_preview")]
 script = ExtResource("1_uwrxv")
+countdown_label = NodePath("CountdownLayer/CountdownLabel")
+shot_animation = NodePath("CameraFlashLayer/AnimationPlayer")
+photo_viewport = NodePath("SubViewport")
+photo_camera = NodePath("SubViewport/Camera2D")
+photo_preview = NodePath("DebugLayer/VBoxContainer/TextureRect")
+metadata/_custom_type_script = "uid://b0ty32plikcic"
+
+[node name="SubViewport" type="SubViewport" parent="." unique_id=1486881165]
+
+[node name="Camera2D" type="Camera2D" parent="SubViewport" unique_id=579498738]
+
+[node name="CountdownLayer" type="CanvasLayer" parent="." unique_id=1342661617]
+
+[node name="CountdownLabel" type="Label" parent="CountdownLayer" unique_id=1611761438]
+z_index = 5
+offset_right = 96.0
+offset_bottom = 23.0
+scale = Vector2(3, 3)
+text = "countdown: "
+
+[node name="Timer" type="Timer" parent="." unique_id=376448149]
+autostart = true
+
+[node name="CameraFlashLayer" type="CanvasLayer" parent="." unique_id=181123229]
+
+[node name="ColorRect" type="ColorRect" parent="CameraFlashLayer" unique_id=1276853001]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(1, 1, 1, 0)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="CameraFlashLayer" unique_id=1751515839]
+libraries/ = SubResource("AnimationLibrary_lbhrr")
+
+[node name="DebugLayer" type="CanvasLayer" parent="." unique_id=551263260]
+
+[node name="ColorRect" type="ColorRect" parent="DebugLayer" unique_id=1843093144]
+offset_left = 896.0
+offset_top = 384.0
+offset_right = 1152.0
+offset_bottom = 648.0
+color = Color(0.33333334, 1, 0.5254902, 0.43529412)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="DebugLayer" unique_id=1475123625]
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -256.0
+offset_top = -264.0
+grow_horizontal = 0
+grow_vertical = 0
+
+[node name="Label" type="Label" parent="DebugLayer/VBoxContainer" unique_id=720324843]
+layout_mode = 2
+text = "Debug Menu"
+horizontal_alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="DebugLayer/VBoxContainer" unique_id=1371113650]
+layout_mode = 2
+custom_minimum_size = Vector2(240, 180)
+expand_mode = 1
+stretch_mode = 5
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

@@ -1,7 +1,9 @@
 [gd_scene format=4 uid="uid://bco2lnrats76t"]
 
+[ext_resource type="Script" uid="uid://oagkgxbkc72q" path="res://scripts/level.gd" id="1_jc8js"]
 [ext_resource type="Texture2D" uid="uid://dac7x0xclylu1" path="res://assets/tilesets/topdown-retro-interior/TopDownHouse_FloorsAndWalls.png" id="1_xt70c"]
 [ext_resource type="PackedScene" uid="uid://be8qbmt0fe144" path="res://scenes/player.tscn" id="2_0rvxq"]
+[ext_resource type="PackedScene" uid="uid://d25ichicn4iyr" path="res://scenes/picture_area.tscn" id="4_fhcjy"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_0rvxq"]
 texture = ExtResource("1_xt70c")
@@ -387,7 +389,11 @@ texture = ExtResource("1_xt70c")
 [sub_resource type="TileSet" id="TileSet_olw2f"]
 sources/0 = SubResource("TileSetAtlasSource_xt70c")
 
-[node name="LevelDebug" type="Node2D" unique_id=313423636]
+[node name="LevelDebug" type="Node2D" unique_id=1447478684 node_paths=PackedStringArray("picture_area")]
+script = ExtResource("1_jc8js")
+time_between_shots = Array[int]([2, 2, 2, 4, 5])
+picture_area = NodePath("PictureArea")
+metadata/_custom_type_script = "uid://oagkgxbkc72q"
 
 [node name="HouseLayer" type="TileMapLayer" parent="." unique_id=1087417817]
 scale = Vector2(3, 3)
@@ -402,3 +408,6 @@ collision_enabled = false
 
 [node name="Player" parent="." unique_id=731797180 instance=ExtResource("2_0rvxq")]
 position = Vector2(294, 265)
+
+[node name="PictureArea" parent="." unique_id=650737307 instance=ExtResource("4_fhcjy")]
+position = Vector2(968, 112)
