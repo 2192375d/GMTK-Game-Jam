@@ -1,14 +1,8 @@
-extends Node2D
+extends Node3D
 
 class_name Level
 
 @export var time_between_shots: Array[int]
-@export var picture_area: PictureArea
-
-# Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-	pass # Replace with function body.
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
+@export var picture_area: PictureArea3D
+@export var photo_viewport: SubViewport
+@export var photo_camera: Camera3D
