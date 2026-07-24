@@ -43,14 +43,10 @@ _data = {
 script = ExtResource("1_uwrxv")
 countdown_label = NodePath("CountdownLayer/CountdownLabel")
 shot_animation = NodePath("CameraFlashLayer/AnimationPlayer")
-photo_viewport = NodePath("SubViewport")
-photo_camera = NodePath("SubViewport/Camera2D")
+photo_viewport = NodePath("")
+photo_camera = NodePath("")
 photo_preview = NodePath("DebugLayer/VBoxContainer/TextureRect")
 metadata/_custom_type_script = "uid://b0ty32plikcic"
-
-[node name="SubViewport" type="SubViewport" parent="." unique_id=1486881165]
-
-[node name="Camera2D" type="Camera2D" parent="SubViewport" unique_id=579498738]
 
 [node name="CountdownLayer" type="CanvasLayer" parent="." unique_id=1342661617]
 
@@ -103,8 +99,8 @@ text = "Debug Menu"
 horizontal_alignment = 1
 
 [node name="TextureRect" type="TextureRect" parent="DebugLayer/VBoxContainer" unique_id=1371113650]
-layout_mode = 2
 custom_minimum_size = Vector2(240, 180)
+layout_mode = 2
 expand_mode = 1
 stretch_mode = 5
 
