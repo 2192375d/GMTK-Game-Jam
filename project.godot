@@ -65,6 +65,10 @@ space={
 ]
 }
 
+[layer_names]
+
+3d_physics/layer_2="Garbage"
+
 [physics]
 
 3d/physics_engine="Jolt Physics"

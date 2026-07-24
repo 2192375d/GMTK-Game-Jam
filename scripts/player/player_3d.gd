@@ -6,10 +6,11 @@ const PUSH_FORCE: float = 1.0
 @onready var held_item_controller: HeldItemController = $"Held Item Controller"
 var pause_inputs:= false
 
-func _physics_process(_delta: float) -> void:
+func _physics_process(delta: float) -> void:
 	if pause_inputs: return
 	velocity = $Movement.get_movement(transform)
 	move_and_slide()
+	push_things(delta)
 
 func push_things(delta: float):
 	for i in get_slide_collision_count():

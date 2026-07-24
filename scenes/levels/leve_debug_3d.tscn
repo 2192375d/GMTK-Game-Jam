@@ -6,6 +6,7 @@
 [ext_resource type="Script" uid="uid://lhunffqsa8pb" path="res://scripts/player/held_item_controller.gd" id="4_1dpcr"]
 [ext_resource type="Script" uid="uid://dxclowwyevts2" path="res://scripts/game/pickupable.gd" id="4_7qlvo"]
 [ext_resource type="Script" uid="uid://qjkk4k1y6koo" path="res://scripts/player/player_movement.gd" id="5_1dpcr"]
+[ext_resource type="Texture2D" uid="uid://d27ogbabqm3i2" path="res://assets/temp/temp-area.png" id="7_0x665"]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_1i2hj"]
 size = Vector2(1.722, 2)
@@ -24,7 +25,6 @@ size = Vector3(1, 1.8, 1)
 radius = 1.2870938
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_2kb4h"]
-friction = 0.2
 
 [sub_resource type="SphereMesh" id="SphereMesh_aiccc"]
 
@@ -33,6 +33,9 @@ friction = 0.2
 [sub_resource type="BoxMesh" id="BoxMesh_2kb4h"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_rg6gb"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_1i2hj"]
+size = Vector3(9.529297, 6.26709, 3.463379)
 
 [node name="LeveDebug3d" type="Node3D" unique_id=1785692282]
 
@@ -116,5 +119,21 @@ mesh = SubResource("BoxMesh_2kb4h")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Garbage2" unique_id=955892744]
 shape = SubResource("BoxShape3D_rg6gb")
+
+[node name="No-no-zone" type="Area3D" parent="." unique_id=952523899]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="No-no-zone" unique_id=1845170190]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, -0.5)
+shape = SubResource("BoxShape3D_1i2hj")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="No-no-zone" unique_id=111207245]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, 6.1419497)
+shape = SubResource("BoxShape3D_1i2hj")
+
+[node name="Sprite3D" type="Sprite3D" parent="No-no-zone" unique_id=364708601]
+transform = Transform3D(2.512154, 0, 0, 0, 1, 0, 0, 0, 2.512154, 0, 0.001, 2.9598913)
+sorting_offset = -1.805
+axis = 1
+texture = ExtResource("7_0x665")
 
 [connection signal="body_exited" from="Player/Interaction Area" to="Player/Interaction Area" method="_on_body_exited"]
