@@ -7,6 +7,8 @@
 [ext_resource type="Script" uid="uid://qjkk4k1y6koo" path="res://scripts/player/player_movement.gd" id="5_rky0j"]
 [ext_resource type="Script" uid="uid://dxclowwyevts2" path="res://scripts/game/pickupable.gd" id="6_xjgd8"]
 [ext_resource type="Texture2D" uid="uid://d27ogbabqm3i2" path="res://assets/temp/temp-area.png" id="7_pefqn"]
+[ext_resource type="Script" uid="uid://oagkgxbkc72q" path="res://scripts/level.gd" id="8_level"]
+[ext_resource type="Script" uid="uid://cbhihhg3meoli" path="res://scripts/picture_area_3d.gd" id="9_picture_area"]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_1i2hj"]
 size = Vector2(3, 3)
@@ -42,7 +44,12 @@ radius = 1.2870938
 [sub_resource type="BoxShape3D" id="BoxShape3D_1i2hj"]
 size = Vector3(5, 9, 4)
 
-[node name="LevelDebug3d" type="Node3D" unique_id=1785692282]
+[node name="LevelDebug3d" type="Node3D" unique_id=1785692282 node_paths=PackedStringArray("picture_area", "photo_viewport", "photo_camera")]
+script = ExtResource("8_level")
+time_between_shots = Array[int]([5, 5, 5, 5, 5])
+picture_area = NodePath("PictureArea")
+photo_viewport = NodePath("SubViewport")
+photo_camera = NodePath("SubViewport/Camera3D")
 
 [node name="Floor" type="MeshInstance3D" parent="." unique_id=837461033]
 transform = Transform3D(7, 0, 0, 0, 7, 0, 0, 0, 7, 0, 0, 0)
@@ -125,8 +132,10 @@ mesh = SubResource("BoxMesh_2kb4h")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Garbage2" unique_id=955892744]
 shape = SubResource("BoxShape3D_rg6gb")
 
-[node name="PictureArea" type="Area3D" parent="." unique_id=952523899]
+[node name="PictureArea" type="Area3D" parent="." unique_id=952523899 node_paths=PackedStringArray("capture_shape")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7, 0, -7)
+script = ExtResource("9_picture_area")
+capture_shape = NodePath("CollisionShape3D")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="PictureArea" unique_id=1845170190]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.633545, -1)

@@ -39,12 +39,10 @@ _data = {
 &"flash": SubResource("Animation_lnu2h")
 }
 
-[node name="Game" type="Node" unique_id=396159062 node_paths=PackedStringArray("countdown_label", "shot_animation", "photo_viewport", "photo_camera", "photo_preview")]
+[node name="Game" type="Node" unique_id=396159062 node_paths=PackedStringArray("countdown_label", "shot_animation", "photo_preview")]
 script = ExtResource("1_uwrxv")
 countdown_label = NodePath("CountdownLayer/CountdownLabel")
 shot_animation = NodePath("CameraFlashLayer/AnimationPlayer")
-photo_viewport = NodePath("")
-photo_camera = NodePath("")
 photo_preview = NodePath("DebugLayer/VBoxContainer/TextureRect")
 metadata/_custom_type_script = "uid://b0ty32plikcic"
 
