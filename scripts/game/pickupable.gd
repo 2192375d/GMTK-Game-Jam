@@ -30,6 +30,8 @@ func on_space_interact(player: Player) -> void:
 	player.pause_inputs = false
 	
 func _process(_delta: float) -> void:
+	super._process(_delta)
+
 	if picked_up:
 		await get_tree().process_frame
 
