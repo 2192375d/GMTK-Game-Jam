@@ -22,7 +22,6 @@ func _ready():
 	
 func toggle_outline(toggle: bool):
 	player_can_interact = toggle
-	print(player_can_interact)
 
 func _process(_delta: float) -> void:
 	var outline_color: Color
