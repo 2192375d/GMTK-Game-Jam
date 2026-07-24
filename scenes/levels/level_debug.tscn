@@ -25,8 +25,7 @@ size = Vector2(3.5, 2)
 [sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_0pqje"]
 plane = Plane(0, 0, -1, 0)
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_2kb4h"]
-size = Vector3(1, 1.8, 1)
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_0x665"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_0pqje"]
 radius = 1.2870938
@@ -56,6 +55,7 @@ transform = Transform3D(7, 0, 0, 0, 7, 0, 0, 0, 7, 0, 0, 0)
 mesh = SubResource("PlaneMesh_1i2hj")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="Floor" unique_id=690470115]
+collision_mask = 11
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Floor/StaticBody3D" unique_id=1223480284]
 shape = SubResource("WorldBoundaryShape3D_1i2hj")
@@ -65,6 +65,8 @@ transform = Transform3D(6.237, 0, 0, 0, -3.059797e-07, -4.235, 0, 7, -1.8511774e
 mesh = SubResource("PlaneMesh_2d80u")
 
 [node name="StaticBody3D2" type="StaticBody3D" parent="Wall" unique_id=209285910]
+transform = Transform3D(0.9999999, 0, 0, 0, 1, -7.1054274e-15, 0, -1.4210855e-14, 1, 0, -0.01, 0)
+collision_mask = 11
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Wall/StaticBody3D2" unique_id=2066792149]
 transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0)
@@ -76,17 +78,20 @@ fov = 20.0
 
 [node name="Player" type="CharacterBody3D" parent="." unique_id=349837506]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.502649, 1.0195179, -6.108208)
+collision_layer = 8
+collision_mask = 3
 script = ExtResource("1_ux464")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Player" unique_id=1926655930]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.100000024, 0)
-shape = SubResource("BoxShape3D_2kb4h")
+shape = SubResource("CylinderShape3D_0x665")
 
 [node name="Sprite3D" type="Sprite3D" parent="Player" unique_id=2056004929]
 transform = Transform3D(3.267, 0, 0, 0, 2.8218722, 0, 0, 0, 1, 0, 0, 0)
 texture = ExtResource("2_dyhwa")
 
 [node name="Interaction Area" type="Area3D" parent="Player" unique_id=1401964825]
+collision_mask = 2
 script = ExtResource("3_uyr38")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Player/Interaction Area" unique_id=690115885]
@@ -106,6 +111,8 @@ omni_range = 23.155
 
 [node name="Garbage" type="RigidBody3D" parent="." unique_id=196298109 node_paths=PackedStringArray("visual_mesh", "collision_shape")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.0913281, 1.2210369)
+collision_layer = 2
+collision_mask = 5
 mass = 0.1
 physics_material_override = SubResource("PhysicsMaterial_2kb4h")
 script = ExtResource("6_xjgd8")
@@ -120,6 +127,8 @@ shape = SubResource("SphereShape3D_1i2hj")
 
 [node name="Garbage2" type="RigidBody3D" parent="." unique_id=140819611 node_paths=PackedStringArray("visual_mesh", "collision_shape")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.4945698, 1.0913281, 4.329894)
+collision_layer = 2
+collision_mask = 5
 mass = 0.1
 physics_material_override = SubResource("PhysicsMaterial_2kb4h")
 script = ExtResource("6_xjgd8")
@@ -134,6 +143,8 @@ shape = SubResource("BoxShape3D_rg6gb")
 
 [node name="PictureArea" type="Area3D" parent="." unique_id=952523899 node_paths=PackedStringArray("capture_shape")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7, 0, -7)
+collision_layer = 4
+collision_mask = 18
 script = ExtResource("9_picture_area")
 capture_shape = NodePath("CollisionShape3D")
 
@@ -156,3 +167,5 @@ fov = 5.0
 size = 6.0
 
 [connection signal="body_exited" from="Player/Interaction Area" to="Player/Interaction Area" method="_on_body_exited"]
+[connection signal="body_entered" from="PictureArea" to="PictureArea" method="_on_body_entered"]
+[connection signal="body_exited" from="PictureArea" to="PictureArea" method="_on_body_exited"]
