@@ -6,3 +6,4 @@ class_name Level
 @export var picture_area: PictureArea3D
 @export var photo_viewport: SubViewport
 @export var photo_camera: Camera3D
+@export var garbage_patterns_root: Node3D

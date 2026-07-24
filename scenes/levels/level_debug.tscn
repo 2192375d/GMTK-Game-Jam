@@ -5,9 +5,10 @@
 [ext_resource type="Script" uid="uid://mpjejuo715u3" path="res://scripts/player/interaction_manager.gd" id="3_uyr38"]
 [ext_resource type="Script" uid="uid://lhunffqsa8pb" path="res://scripts/player/held_item_controller.gd" id="4_tuhi8"]
 [ext_resource type="Script" uid="uid://qjkk4k1y6koo" path="res://scripts/player/player_movement.gd" id="5_rky0j"]
-[ext_resource type="Script" uid="uid://dxclowwyevts2" path="res://scripts/game/pickupable.gd" id="6_xjgd8"]
 [ext_resource type="Texture2D" uid="uid://d27ogbabqm3i2" path="res://assets/temp/temp-area.png" id="7_pefqn"]
+[ext_resource type="PackedScene" uid="uid://crcuvvajog70r" path="res://scenes/garbage/debug_ball_garbage.tscn" id="7_tuhi8"]
 [ext_resource type="Script" uid="uid://oagkgxbkc72q" path="res://scripts/level.gd" id="8_level"]
+[ext_resource type="PackedScene" uid="uid://b0ese08ofw8xi" path="res://scenes/garbage/debug_cube_garbage.tscn" id="8_rky0j"]
 [ext_resource type="Script" uid="uid://cbhihhg3meoli" path="res://scripts/picture_area_3d.gd" id="9_picture_area"]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_1i2hj"]
@@ -30,25 +31,16 @@ plane = Plane(0, 0, -1, 0)
 [sub_resource type="SphereShape3D" id="SphereShape3D_0pqje"]
 radius = 1.2870938
 
-[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_2kb4h"]
-
-[sub_resource type="SphereMesh" id="SphereMesh_aiccc"]
-
-[sub_resource type="SphereShape3D" id="SphereShape3D_1i2hj"]
-
-[sub_resource type="BoxMesh" id="BoxMesh_2kb4h"]
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_rg6gb"]
-
 [sub_resource type="BoxShape3D" id="BoxShape3D_1i2hj"]
 size = Vector3(5, 9, 4)
 
-[node name="LevelDebug3d" type="Node3D" unique_id=1785692282 node_paths=PackedStringArray("picture_area", "photo_viewport", "photo_camera")]
+[node name="LevelDebug3d" type="Node3D" unique_id=1785692282 node_paths=PackedStringArray("picture_area", "photo_viewport", "photo_camera", "garbage_patterns_root")]
 script = ExtResource("8_level")
 time_between_shots = Array[int]([5, 5, 5, 5, 5])
 picture_area = NodePath("PictureArea")
 photo_viewport = NodePath("SubViewport")
 photo_camera = NodePath("SubViewport/Camera3D")
+garbage_patterns_root = NodePath("Garbage Patterns")
 
 [node name="Floor" type="MeshInstance3D" parent="." unique_id=837461033]
 transform = Transform3D(7, 0, 0, 0, 7, 0, 0, 0, 7, 0, 0, 0)
@@ -87,7 +79,9 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.100000024, 0)
 shape = SubResource("CylinderShape3D_0x665")
 
 [node name="Sprite3D" type="Sprite3D" parent="Player" unique_id=2056004929]
-transform = Transform3D(3.267, 0, 0, 0, 2.8218722, 0, 0, 0, 1, 0, 0, 0)
+transform = Transform3D(3.267, 0, 0, 0, 2.8218722, 0, 0, 0, 1, 0, -0.14897203, 0)
+alpha_cut = 2
+texture_filter = 0
 texture = ExtResource("2_dyhwa")
 
 [node name="Interaction Area" type="Area3D" parent="Player" unique_id=1401964825]
@@ -109,37 +103,32 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 9, 0)
 shadow_enabled = true
 omni_range = 23.155
 
-[node name="Garbage" type="RigidBody3D" parent="." unique_id=196298109 node_paths=PackedStringArray("visual_mesh", "collision_shape")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.0913281, 1.2210369)
-collision_layer = 2
-collision_mask = 5
-mass = 0.1
-physics_material_override = SubResource("PhysicsMaterial_2kb4h")
-script = ExtResource("6_xjgd8")
-visual_mesh = NodePath("Mesh")
-collision_shape = NodePath("CollisionShape3D")
+[node name="Garbage Patterns" type="Node3D" parent="." unique_id=507000476]
 
-[node name="Mesh" type="MeshInstance3D" parent="Garbage" unique_id=1109878547]
-mesh = SubResource("SphereMesh_aiccc")
+[node name="0" type="Node3D" parent="Garbage Patterns" unique_id=929137519]
+visible = false
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Garbage" unique_id=1909610111]
-shape = SubResource("SphereShape3D_1i2hj")
+[node name="Debug Ball Garbage" parent="Garbage Patterns/0" unique_id=1531612167 instance=ExtResource("7_tuhi8")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.8990326, 0)
 
-[node name="Garbage2" type="RigidBody3D" parent="." unique_id=140819611 node_paths=PackedStringArray("visual_mesh", "collision_shape")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.4945698, 1.0913281, 4.329894)
-collision_layer = 2
-collision_mask = 5
-mass = 0.1
-physics_material_override = SubResource("PhysicsMaterial_2kb4h")
-script = ExtResource("6_xjgd8")
-visual_mesh = NodePath("MeshInstance3D")
-collision_shape = NodePath("CollisionShape3D")
+[node name="Debug Ball Garbage2" parent="Garbage Patterns/0" unique_id=1123246657 instance=ExtResource("7_tuhi8")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.955387, 0.75134325, -7.741615)
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Garbage2" unique_id=986090000]
-mesh = SubResource("BoxMesh_2kb4h")
+[node name="1" type="Node3D" parent="Garbage Patterns" unique_id=824832244]
+process_mode = 4
+visible = false
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Garbage2" unique_id=955892744]
-shape = SubResource("BoxShape3D_rg6gb")
+[node name="Garbage2" parent="Garbage Patterns/1" unique_id=612791119 instance=ExtResource("8_rky0j")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.844358, 0)
+
+[node name="Garbage3" parent="Garbage Patterns/1" unique_id=1920290043 instance=ExtResource("8_rky0j")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.944505, 3.9050417, -8.352941)
+
+[node name="2" type="Node3D" parent="Garbage Patterns" unique_id=499065424]
+visible = false
+
+[node name="3" type="Node3D" parent="Garbage Patterns" unique_id=1464027169]
+visible = false
 
 [node name="PictureArea" type="Area3D" parent="." unique_id=952523899 node_paths=PackedStringArray("capture_shape")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7, 0, -7)
