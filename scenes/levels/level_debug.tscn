@@ -10,6 +10,7 @@
 [ext_resource type="Script" uid="uid://oagkgxbkc72q" path="res://scripts/level.gd" id="8_level"]
 [ext_resource type="PackedScene" uid="uid://b0ese08ofw8xi" path="res://scenes/garbage/debug_cube_garbage.tscn" id="8_rky0j"]
 [ext_resource type="Script" uid="uid://cbhihhg3meoli" path="res://scripts/picture_area_3d.gd" id="9_picture_area"]
+[ext_resource type="PackedScene" uid="uid://yj556j4dl4pn" path="res://assets/models/tripod.blend" id="11_rky0j"]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_1i2hj"]
 size = Vector2(3, 3)
@@ -130,12 +131,13 @@ visible = false
 [node name="3" type="Node3D" parent="Garbage Patterns" unique_id=1464027169]
 visible = false
 
-[node name="PictureArea" type="Area3D" parent="." unique_id=952523899 node_paths=PackedStringArray("capture_shape")]
+[node name="PictureArea" type="Area3D" parent="." unique_id=952523899 node_paths=PackedStringArray("capture_shape", "tripod")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7, 0, -7)
 collision_layer = 4
 collision_mask = 26
 script = ExtResource("9_picture_area")
 capture_shape = NodePath("CollisionShape3D")
+tripod = NodePath("../tripod/Stand -rigid")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="PictureArea" unique_id=1845170190]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.633545, -1)
@@ -155,6 +157,22 @@ projection = 1
 fov = 5.0
 size = 6.0
 
+[node name="tripod" parent="." unique_id=2014705639 instance=ExtResource("11_rky0j")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7, 0.502, -1.847)
+
+[node name="Stand -rigid" parent="tripod" index="0" unique_id=1520010135]
+collision_layer = 2
+collision_mask = 7
+axis_lock_linear_y = true
+axis_lock_linear_z = true
+axis_lock_angular_x = true
+axis_lock_angular_y = true
+axis_lock_angular_z = true
+mass = 0.2
+linear_damp = 2.525
+
 [connection signal="body_exited" from="Player/Interaction Area" to="Player/Interaction Area" method="_on_body_exited"]
 [connection signal="body_entered" from="PictureArea" to="PictureArea" method="_on_body_entered"]
 [connection signal="body_exited" from="PictureArea" to="PictureArea" method="_on_body_exited"]
+
+[editable path="tripod"]
