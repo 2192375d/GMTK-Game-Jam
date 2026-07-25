@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://b4buidft6ws07"
-path="res://.godot/imported/box_no_lids.blend-35e4770e156e0715c46733ef191428a4.scn"
+uid="uid://hi8x7nkaj8l6"
+path="res://.godot/imported/bottle.blend-c10869fa6bfc0c23beffdf70af852902.scn"
 
 [deps]
 
-source_file="res://assets/models/box_no_lids.blend"
-dest_files=["res://.godot/imported/box_no_lids.blend-35e4770e156e0715c46733ef191428a4.scn"]
+source_file="res://assets/models/bottle.blend"
+dest_files=["res://.godot/imported/bottle.blend-c10869fa6bfc0c23beffdf70af852902.scn"]
 
 [params]
 
