@@ -1,5 +1,8 @@
 [gd_scene format=3 uid="uid://2yvq6yiiep7y"]
 
+[ext_resource type="Script" uid="uid://dj480obgaif2c" path="res://scripts/menu/main_menu.gd" id="1_l6cm7"]
+[ext_resource type="PackedScene" uid="uid://bshu6j75jogwf" path="res://scenes/game.tscn" id="2_ekxnf"]
+
 [node name="MainMenu" type="Control" unique_id=1706629424]
 layout_mode = 3
 anchors_preset = 15
@@ -7,34 +10,53 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_l6cm7")
+game_scene = ExtResource("2_ekxnf")
 
-[node name="Panel" type="Panel" parent="." unique_id=1951648126]
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=1365684534]
+custom_minimum_size = Vector2(200, 0)
 layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -42.0
-offset_top = -87.0
-offset_right = -42.0
-offset_bottom = -87.0
+anchors_preset = -1
+anchor_left = 0.41319445
+anchor_top = 0.3472222
+anchor_right = 0.5868056
+anchor_bottom = 0.6527778
+offset_top = 1.5258789e-05
 grow_horizontal = 2
 grow_vertical = 2
+metadata/_edit_use_anchors_ = true
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Panel" unique_id=1365684534]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
-
-[node name="Label" type="Label" parent="Panel/VBoxContainer" unique_id=2009300416]
+[node name="Label" type="Label" parent="VBoxContainer" unique_id=2009300416]
 layout_mode = 2
 text = "Main Menu"
+horizontal_alignment = 1
 
-[node name="start game" type="Button" parent="Panel/VBoxContainer" unique_id=1919956217]
+[node name="level1" type="Button" parent="VBoxContainer" unique_id=1919956217]
 layout_mode = 2
-text = "start game"
+text = "level 1"
 
-[node name="exit" type="Button" parent="Panel/VBoxContainer" unique_id=114898640]
+[node name="level2" type="Button" parent="VBoxContainer" unique_id=1246020126]
+layout_mode = 2
+text = "level 2"
+
+[node name="level3" type="Button" parent="VBoxContainer" unique_id=953663994]
+layout_mode = 2
+text = "level 3"
+
+[node name="level4" type="Button" parent="VBoxContainer" unique_id=339042891]
+layout_mode = 2
+text = "level 4"
+
+[node name="level5" type="Button" parent="VBoxContainer" unique_id=690108300]
+layout_mode = 2
+text = "level 5"
+
+[node name="exit" type="Button" parent="VBoxContainer" unique_id=114898640]
 layout_mode = 2
 text = "exit"
+
+[connection signal="pressed" from="VBoxContainer/level1" to="." method="_on_level_1_pressed"]
+[connection signal="pressed" from="VBoxContainer/level2" to="." method="_on_level_2_pressed"]
+[connection signal="pressed" from="VBoxContainer/level3" to="." method="_on_level_3_pressed"]
+[connection signal="pressed" from="VBoxContainer/level4" to="." method="_on_level_4_pressed"]
+[connection signal="pressed" from="VBoxContainer/level5" to="." method="_on_level_5_pressed"]

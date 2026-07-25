@@ -14,6 +14,26 @@ const PHOTO_PIXELS_PER_WORLD_UNIT: int = 60
 var current_level: Level = null
 
 func _ready() -> void:
+	_load_current_level()
+	update_countdown_text()
+	update_level(0)
+
+
+func restart_level() -> void:
+	current_time_elapsed = 0
+	current_time_index = 0
+
+	if is_instance_valid(current_level):
+		remove_child(current_level)
+		current_level.queue_free()
+
+	photo_preview.texture = null
+	_load_current_level()
+	update_countdown_text()
+	update_level(0)
+
+
+func _load_current_level() -> void:
 	var current_level_scene: PackedScene = load(LevelRegistry.get_level_string(current_level_enum))
 	current_level = current_level_scene.instantiate()
 	add_child(current_level)
@@ -26,9 +46,6 @@ func _ready() -> void:
 	photo_viewport.world_3d = current_level.get_world_3d()
 	photo_viewport.size = Vector2i(capture_size * PHOTO_PIXELS_PER_WORLD_UNIT)
 	photo_camera.size = capture_size.y
-	
-	update_countdown_text()
-	update_level(0)
 
 func _capture_photo() -> void:
 	var photo_viewport: SubViewport = current_level.photo_viewport
@@ -64,7 +81,7 @@ func _on_timer_timeout() -> void:
 
 func update_countdown_text() -> void:
 	countdown_label.text = "countdown: " + str(current_level.time_between_shots[current_time_index] - current_time_elapsed)
-	
+
 func update_level(index: int):
 	var current_garbage_pattern = current_level.garbage_patterns_root.get_child(index)
 	for child in current_level.garbage_patterns_root.get_children():

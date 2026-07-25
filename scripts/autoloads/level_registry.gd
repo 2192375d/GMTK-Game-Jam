@@ -16,5 +16,7 @@ func get_level_string(level_enum: LevelEnum) -> String:
 	match level_enum:
 		LevelEnum.LEVEL_DEBUG:
 			string = "uid://6b0ucmt5u7st"
+		LevelEnum.LEVEL1:
+			string = "uid://dwlyrro6m7pxv"
 	
 	return string
