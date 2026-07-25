@@ -1,0 +1,160 @@
+[gd_scene format=3 uid="uid://dwlyrro6m7pxv"]
+
+[ext_resource type="Script" uid="uid://oagkgxbkc72q" path="res://scripts/level.gd" id="1_5ntmo"]
+[ext_resource type="Script" uid="uid://dob7akqprk7dw" path="res://scripts/player/player_3d.gd" id="2_nkeig"]
+[ext_resource type="Texture2D" uid="uid://bfynr1wd6tgtt" path="res://assets/sprites/blossom-full.png" id="3_nfihu"]
+[ext_resource type="Script" uid="uid://mpjejuo715u3" path="res://scripts/player/interaction_manager.gd" id="4_lgguw"]
+[ext_resource type="Script" uid="uid://lhunffqsa8pb" path="res://scripts/player/held_item_controller.gd" id="5_jprdt"]
+[ext_resource type="Script" uid="uid://qjkk4k1y6koo" path="res://scripts/player/player_movement.gd" id="6_ps2vj"]
+[ext_resource type="PackedScene" uid="uid://crcuvvajog70r" path="res://scenes/garbage/debug_ball_garbage.tscn" id="7_sbmf2"]
+[ext_resource type="PackedScene" uid="uid://b0ese08ofw8xi" path="res://scenes/garbage/debug_cube_garbage.tscn" id="8_1xax6"]
+[ext_resource type="Script" uid="uid://cbhihhg3meoli" path="res://scripts/picture_area_3d.gd" id="9_g7tkf"]
+[ext_resource type="Texture2D" uid="uid://d27ogbabqm3i2" path="res://assets/temp/temp-area.png" id="10_4fww7"]
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_1i2hj"]
+size = Vector2(3, 3)
+
+[sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_1i2hj"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0x665"]
+albedo_color = Color(1, 0.11372549, 1, 1)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_2d80u"]
+material = SubResource("StandardMaterial3D_0x665")
+size = Vector2(3.5, 2)
+
+[sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_0pqje"]
+plane = Plane(0, 0, -1, 0)
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_0x665"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_0pqje"]
+radius = 1.2870938
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_1i2hj"]
+size = Vector3(5, 9, 4)
+
+[node name="LevelDebug3d" type="Node3D" unique_id=1785692282 node_paths=PackedStringArray("picture_area", "photo_viewport", "photo_camera", "garbage_patterns_root")]
+script = ExtResource("1_5ntmo")
+time_between_shots = Array[int]([5, 5, 5, 5, 5])
+picture_area = NodePath("PictureArea")
+photo_viewport = NodePath("SubViewport")
+photo_camera = NodePath("SubViewport/Camera3D")
+garbage_patterns_root = NodePath("Garbage Patterns")
+
+[node name="Floor" type="MeshInstance3D" parent="." unique_id=837461033]
+transform = Transform3D(7, 0, 0, 0, 7, 0, 0, 0, 7, 0, 0, 0)
+mesh = SubResource("PlaneMesh_1i2hj")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Floor" unique_id=690470115]
+collision_mask = 11
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Floor/StaticBody3D" unique_id=1223480284]
+shape = SubResource("WorldBoundaryShape3D_1i2hj")
+
+[node name="Wall" type="MeshInstance3D" parent="." unique_id=1299564567]
+transform = Transform3D(6.237, 0, 0, 0, -3.059797e-07, -4.235, 0, 7, -1.8511774e-07, 0, 4, -10.220403)
+mesh = SubResource("PlaneMesh_2d80u")
+
+[node name="StaticBody3D2" type="StaticBody3D" parent="Wall" unique_id=209285910]
+transform = Transform3D(0.9999999, 0, 0, 0, 1, -7.1054274e-15, 0, -1.4210855e-14, 1, 0, -0.01, 0)
+collision_mask = 11
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Wall/StaticBody3D2" unique_id=2066792149]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0)
+shape = SubResource("WorldBoundaryShape3D_0pqje")
+
+[node name="Camera3D" type="Camera3D" parent="." unique_id=1149582600]
+transform = Transform3D(1, 0, 0, 0, 0.84629416, 0.5327159, 0, -0.5327159, 0.84629416, 0, 19.036442, 29.752146)
+fov = 20.0
+
+[node name="Player" type="CharacterBody3D" parent="." unique_id=349837506]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.502649, 1.0195179, -6.108208)
+collision_layer = 8
+collision_mask = 3
+script = ExtResource("2_nkeig")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Player" unique_id=1926655930]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.100000024, 0)
+shape = SubResource("CylinderShape3D_0x665")
+
+[node name="Sprite3D" type="Sprite3D" parent="Player" unique_id=2056004929]
+transform = Transform3D(3.267, 0, 0, 0, 2.8218722, 0, 0, 0, 1, 0, -0.14897203, 0)
+alpha_cut = 2
+texture_filter = 0
+texture = ExtResource("3_nfihu")
+
+[node name="Interaction Area" type="Area3D" parent="Player" unique_id=1401964825]
+collision_mask = 2
+script = ExtResource("4_lgguw")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Player/Interaction Area" unique_id=690115885]
+shape = SubResource("SphereShape3D_0pqje")
+
+[node name="Held Item Controller" type="Node3D" parent="Player" unique_id=1509292524]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.4, -0.233, 0)
+script = ExtResource("5_jprdt")
+
+[node name="Movement" type="Node" parent="Player" unique_id=1628852448]
+script = ExtResource("6_ps2vj")
+
+[node name="AreaLight3D" type="OmniLight3D" parent="." unique_id=166368872]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 9, 0)
+shadow_enabled = true
+omni_range = 23.155
+
+[node name="Garbage Patterns" type="Node3D" parent="." unique_id=507000476]
+
+[node name="0" type="Node3D" parent="Garbage Patterns" unique_id=929137519]
+visible = false
+
+[node name="Debug Ball Garbage" parent="Garbage Patterns/0" unique_id=1531612167 instance=ExtResource("7_sbmf2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.8990326, 0)
+
+[node name="Debug Ball Garbage2" parent="Garbage Patterns/0" unique_id=1123246657 instance=ExtResource("7_sbmf2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.955387, 0.75134325, -7.741615)
+
+[node name="1" type="Node3D" parent="Garbage Patterns" unique_id=824832244]
+process_mode = 4
+visible = false
+
+[node name="Garbage2" parent="Garbage Patterns/1" unique_id=612791119 instance=ExtResource("8_1xax6")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.844358, 0)
+
+[node name="Garbage3" parent="Garbage Patterns/1" unique_id=1920290043 instance=ExtResource("8_1xax6")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.944505, 3.9050417, -8.352941)
+
+[node name="2" type="Node3D" parent="Garbage Patterns" unique_id=499065424]
+visible = false
+
+[node name="3" type="Node3D" parent="Garbage Patterns" unique_id=1464027169]
+visible = false
+
+[node name="PictureArea" type="Area3D" parent="." unique_id=952523899 node_paths=PackedStringArray("capture_shape")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7, 0, -7)
+collision_layer = 4
+collision_mask = 18
+script = ExtResource("9_g7tkf")
+capture_shape = NodePath("CollisionShape3D")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="PictureArea" unique_id=1845170190]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.633545, -1)
+shape = SubResource("BoxShape3D_1i2hj")
+
+[node name="Sprite3D" type="Sprite3D" parent="PictureArea" unique_id=364708601]
+transform = Transform3D(2.512154, 0, 0, 0, 1, 0, 0, 0, 2.512154, 0, 0.001, -1.0401087)
+sorting_offset = -1.805
+axis = 1
+texture = ExtResource("10_4fww7")
+
+[node name="SubViewport" type="SubViewport" parent="." unique_id=1435586019]
+
+[node name="Camera3D" type="Camera3D" parent="SubViewport" unique_id=306985259]
+transform = Transform3D(1, 0, 0, 0, 0.7071068, 0.7071068, 0, -0.7071068, 0.7071068, 6.928198, 2.2573242, -7.7282124)
+projection = 1
+fov = 5.0
+size = 6.0
+
+[connection signal="body_exited" from="Player/Interaction Area" to="Player/Interaction Area" method="_on_body_exited"]
+[connection signal="body_entered" from="PictureArea" to="PictureArea" method="_on_body_entered"]
+[connection signal="body_exited" from="PictureArea" to="PictureArea" method="_on_body_exited"]

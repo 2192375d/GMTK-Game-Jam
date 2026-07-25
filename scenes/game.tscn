@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://bshu6j75jogwf"]
 
 [ext_resource type="Script" uid="uid://b0ty32plikcic" path="res://scripts/game/game.gd" id="1_uwrxv"]
+[ext_resource type="Script" uid="uid://dkfrg8rttfhlu" path="res://scripts/menu/pause_menu_layer.gd" id="2_yqjtg"]
 
 [sub_resource type="Animation" id="Animation_yqjtg"]
 length = 0.001
@@ -74,20 +75,23 @@ libraries/ = SubResource("AnimationLibrary_lbhrr")
 [node name="DebugLayer" type="CanvasLayer" parent="." unique_id=551263260]
 
 [node name="ColorRect" type="ColorRect" parent="DebugLayer" unique_id=1843093144]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
 offset_left = 896.0
 offset_top = 384.0
-offset_right = 1152.0
-offset_bottom = 648.0
+grow_horizontal = 2
+grow_vertical = 2
 color = Color(0.33333334, 1, 0.5254902, 0.43529412)
 
 [node name="VBoxContainer" type="VBoxContainer" parent="DebugLayer" unique_id=1475123625]
-anchors_preset = 3
-anchor_left = 1.0
-anchor_top = 1.0
+anchors_preset = -1
+anchor_left = 0.77800006
+anchor_top = 0.59300005
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -256.0
-offset_top = -264.0
+offset_left = -0.25604248
+offset_top = -0.2640381
 grow_horizontal = 0
 grow_vertical = 0
 
@@ -102,4 +106,47 @@ layout_mode = 2
 expand_mode = 1
 stretch_mode = 5
 
+[node name="PauseMenuLayer" type="CanvasLayer" parent="." unique_id=511787114]
+process_mode = 3
+script = ExtResource("2_yqjtg")
+
+[node name="ColorRect" type="ColorRect" parent="PauseMenuLayer" unique_id=1630699187]
+offset_left = 498.0
+offset_top = 249.0
+offset_right = 662.0
+offset_bottom = 396.0
+color = Color(0.40784314, 1, 1, 0.5372549)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PauseMenuLayer" unique_id=1948936055]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="PauseMenuLayer/VBoxContainer" unique_id=336070516]
+layout_mode = 2
+text = "Game is paused!"
+
+[node name="resume" type="Button" parent="PauseMenuLayer/VBoxContainer" unique_id=1779496440]
+layout_mode = 2
+text = "resume"
+
+[node name="exit" type="Button" parent="PauseMenuLayer/VBoxContainer" unique_id=2106844110]
+layout_mode = 2
+text = "exit"
+
+[node name="restart" type="Button" parent="PauseMenuLayer/VBoxContainer" unique_id=2140615981]
+layout_mode = 2
+text = "restart"
+
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="pressed" from="PauseMenuLayer/VBoxContainer/resume" to="PauseMenuLayer" method="_on_resume_pressed"]
+[connection signal="pressed" from="PauseMenuLayer/VBoxContainer/exit" to="PauseMenuLayer" method="_on_exit_pressed"]
+[connection signal="pressed" from="PauseMenuLayer/VBoxContainer/restart" to="PauseMenuLayer" method="_on_restart_pressed"]
