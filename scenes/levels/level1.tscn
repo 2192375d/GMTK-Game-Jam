@@ -71,7 +71,7 @@ fov = 20.0
 [node name="Player" type="CharacterBody3D" parent="." unique_id=349837506]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.502649, 1.0195179, -6.108208)
 collision_layer = 8
-collision_mask = 3
+collision_mask = 7
 script = ExtResource("2_nkeig")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Player" unique_id=1926655930]
@@ -133,7 +133,7 @@ visible = false
 [node name="PictureArea" type="Area3D" parent="." unique_id=952523899 node_paths=PackedStringArray("capture_shape")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7, 0, -7)
 collision_layer = 4
-collision_mask = 18
+collision_mask = 26
 script = ExtResource("9_g7tkf")
 capture_shape = NodePath("CollisionShape3D")
 

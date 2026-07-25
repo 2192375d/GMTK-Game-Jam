@@ -65,11 +65,10 @@ func _on_timer_timeout() -> void:
 		
 		current_time_elapsed = 0
 		shot_animation.play("flash")
-		_capture_photo()
+		await _capture_photo()
 		update_countdown_text()
-		if current_level.picture_area.in_risk_items.size() > 0:
-			print("YOU FAILED THE LEVEL!")
-			# Reload the level by adding the stuff back in place somehow???
+		if current_level.picture_area.in_risk_items.size() > 0 or not current_level.picture_area.is_player_within:
+			restart_level.call_deferred()
 			return
 		else:
 			# Continue and update the garbage to deal with

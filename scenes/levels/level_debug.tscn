@@ -34,7 +34,7 @@ radius = 1.2870938
 [sub_resource type="BoxShape3D" id="BoxShape3D_1i2hj"]
 size = Vector3(5, 9, 4)
 
-[node name="LevelDebug3d" type="Node3D" unique_id=1785692282 node_paths=PackedStringArray("picture_area", "photo_viewport", "photo_camera", "garbage_patterns_root")]
+[node name="LevelDebug3d2" type="Node3D" unique_id=1785692282 node_paths=PackedStringArray("picture_area", "photo_viewport", "photo_camera", "garbage_patterns_root")]
 script = ExtResource("8_level")
 time_between_shots = Array[int]([5, 5, 5, 5, 5])
 picture_area = NodePath("PictureArea")
@@ -133,7 +133,7 @@ visible = false
 [node name="PictureArea" type="Area3D" parent="." unique_id=952523899 node_paths=PackedStringArray("capture_shape")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7, 0, -7)
 collision_layer = 4
-collision_mask = 18
+collision_mask = 26
 script = ExtResource("9_picture_area")
 capture_shape = NodePath("CollisionShape3D")
 

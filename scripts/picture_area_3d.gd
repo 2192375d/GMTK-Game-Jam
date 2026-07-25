@@ -11,13 +11,18 @@ func get_capture_size() -> Vector2:
 
 # Useful for the level to know if ur safe or not
 var in_risk_items: Array[Interactable]
+var is_player_within: bool
 
 func _on_body_entered(body: Node3D) -> void:
 	if body is Interactable:
 		body.within_photo_area = true
 		in_risk_items.append(body)
-
+	if body is Player:
+		is_player_within = true
+		
 func _on_body_exited(body: Node3D) -> void:
 	if body is Interactable:
 		body.within_photo_area = false
 		in_risk_items.erase(body)
+	if body is Player:
+		is_player_within = false
