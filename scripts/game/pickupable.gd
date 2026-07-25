@@ -28,7 +28,7 @@ func on_space_interact(player: Player) -> void:
 	await get_tree().create_timer(0.5).timeout
 	on_cooldown = false
 	player.pause_inputs = false
-	
+
 func _process(_delta: float) -> void:
 	super._process(_delta)
 
@@ -37,9 +37,18 @@ func _process(_delta: float) -> void:
 
 		# wait no it cannot be here the player controls inputs >:( 
 		# TODO fix if it becomes problematic
+		if Input.is_action_just_pressed("drop"):
+			# Throw it
+			picked_up = false
+			saved_player.held_item_controller.drop_item()
+			await get_tree().process_frame
+			on_dropped.emit()
+
 		if Input.is_action_just_pressed("interact"):
 			# Throw it
 			picked_up = false
 			saved_player.held_item_controller.drop_item()
 			await get_tree().process_frame
 			on_dropped.emit()
+			# Apply a force as if "throwing". # TODO make it directional like the "kick"
+			apply_impulse(Vector3(1, 1, 1))
