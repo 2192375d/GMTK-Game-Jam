@@ -1,10 +1,6 @@
 [gd_scene format=3 uid="uid://6b0ucmt5u7st"]
 
-[ext_resource type="Script" uid="uid://dob7akqprk7dw" path="res://scripts/player/player_3d.gd" id="1_ux464"]
-[ext_resource type="Texture2D" uid="uid://bfynr1wd6tgtt" path="res://assets/sprites/blossom-full.png" id="2_dyhwa"]
-[ext_resource type="Script" uid="uid://mpjejuo715u3" path="res://scripts/player/interaction_manager.gd" id="3_uyr38"]
-[ext_resource type="Script" uid="uid://lhunffqsa8pb" path="res://scripts/player/held_item_controller.gd" id="4_tuhi8"]
-[ext_resource type="Script" uid="uid://qjkk4k1y6koo" path="res://scripts/player/player_movement.gd" id="5_rky0j"]
+[ext_resource type="PackedScene" uid="uid://bva66cujbdfsi" path="res://scenes/player/player.tscn" id="2_dyhwa"]
 [ext_resource type="Texture2D" uid="uid://d27ogbabqm3i2" path="res://assets/temp/temp-area.png" id="7_pefqn"]
 [ext_resource type="PackedScene" uid="uid://crcuvvajog70r" path="res://scenes/garbage/debug_ball_garbage.tscn" id="7_tuhi8"]
 [ext_resource type="Script" uid="uid://oagkgxbkc72q" path="res://scripts/level.gd" id="8_level"]
@@ -28,11 +24,6 @@ size = Vector2(3.5, 2)
 [sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_0pqje"]
 plane = Plane(0, 0, -1, 0)
 
-[sub_resource type="CylinderShape3D" id="CylinderShape3D_0x665"]
-
-[sub_resource type="SphereShape3D" id="SphereShape3D_0pqje"]
-radius = 1.2870938
-
 [sub_resource type="BoxShape3D" id="BoxShape3D_1i2hj"]
 size = Vector3(5.5, 9.045, 4)
 
@@ -41,7 +32,7 @@ render_priority = 0
 shader = ExtResource("11_xjgd8")
 shader_parameter/line_color = Color(1, 1, 1, 1)
 shader_parameter/line_thickness = 0.10000000149012
-shader_parameter/dash_frequency = 1.4840000229900001
+shader_parameter/dash_frequency = 1.48400002299
 shader_parameter/scroll_speed = 0.2800004883000007
 shader_parameter/rect_size = Vector2(5.5, 4)
 
@@ -83,35 +74,8 @@ shape = SubResource("WorldBoundaryShape3D_0pqje")
 transform = Transform3D(1, 0, 0, 0, 0.84629416, 0.5327159, 0, -0.5327159, 0.84629416, 0, 19.036442, 29.752146)
 fov = 20.0
 
-[node name="Player" type="CharacterBody3D" parent="." unique_id=349837506]
+[node name="Player" parent="." unique_id=485032501 instance=ExtResource("2_dyhwa")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.502649, 1.0195179, -6.108208)
-collision_layer = 8
-collision_mask = 3
-script = ExtResource("1_ux464")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Player" unique_id=1926655930]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.100000024, 0)
-shape = SubResource("CylinderShape3D_0x665")
-
-[node name="Sprite3D" type="Sprite3D" parent="Player" unique_id=2056004929]
-transform = Transform3D(3.267, 0, 0, 0, 2.8218722, 0, 0, 0, 1, 0, -0.14897203, 0)
-alpha_cut = 2
-texture_filter = 0
-texture = ExtResource("2_dyhwa")
-
-[node name="Interaction Area" type="Area3D" parent="Player" unique_id=1401964825]
-collision_mask = 2
-script = ExtResource("3_uyr38")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Player/Interaction Area" unique_id=690115885]
-shape = SubResource("SphereShape3D_0pqje")
-
-[node name="Held Item Controller" type="Node3D" parent="Player" unique_id=1509292524]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.4, -0.233, 0)
-script = ExtResource("4_tuhi8")
-
-[node name="Movement" type="Node" parent="Player" unique_id=1628852448]
-script = ExtResource("5_rky0j")
 
 [node name="AreaLight3D" type="OmniLight3D" parent="." unique_id=166368872]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 9, 0)
@@ -145,13 +109,14 @@ visible = false
 [node name="3" type="Node3D" parent="Garbage Patterns" unique_id=1464027169]
 visible = false
 
-[node name="PictureArea" type="Area3D" parent="." unique_id=952523899 node_paths=PackedStringArray("capture_shape", "tripod")]
+[node name="PictureArea" type="Area3D" parent="." unique_id=952523899 node_paths=PackedStringArray("capture_shape", "tripod", "camera_subview")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7, 0, -8)
 collision_layer = 4
 collision_mask = 26
 script = ExtResource("9_picture_area")
 capture_shape = NodePath("CollisionShape3D")
 tripod = NodePath("../tripod/Stand -rigid")
+camera_subview = NodePath("../SubViewport")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="PictureArea" unique_id=1845170190]
 shape = SubResource("BoxShape3D_1i2hj")
@@ -170,7 +135,7 @@ mesh = SubResource("PlaneMesh_0pqje")
 [node name="SubViewport" type="SubViewport" parent="." unique_id=1435586019]
 
 [node name="Camera3D" type="Camera3D" parent="SubViewport" unique_id=306985259]
-transform = Transform3D(1, 0, 0, 0, 0.7071068, 0.7071068, 0, -0.7071068, 0.7071068, 6.928198, 2.2573242, -7.7282124)
+transform = Transform3D(1, 0, 0, 0, 0.7071068, 0.7071068, 0, -0.7071068, 0.7071068, 7, 4.079, -5.903)
 projection = 1
 fov = 5.0
 size = 6.0
@@ -189,7 +154,6 @@ axis_lock_angular_z = true
 mass = 0.2
 linear_damp = 2.525
 
-[connection signal="body_exited" from="Player/Interaction Area" to="Player/Interaction Area" method="_on_body_exited"]
 [connection signal="body_entered" from="PictureArea" to="PictureArea" method="_on_body_entered"]
 [connection signal="body_exited" from="PictureArea" to="PictureArea" method="_on_body_exited"]
 

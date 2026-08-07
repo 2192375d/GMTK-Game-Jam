@@ -3,6 +3,7 @@ extends Area3D
 
 @export var capture_shape: CollisionShape3D
 @export var tripod: RigidBody3D
+@export var camera_subview: SubViewport
 
 # Useful for the level to know if ur safe or not
 var in_risk_items: Array[Interactable]
@@ -15,11 +16,11 @@ func get_capture_size() -> Vector2:
 
 func _process(_delta: float) -> void:
 	global_position.x = tripod.global_position.x
+	(camera_subview.get_child(0) as Camera3D).position.x = tripod.global_position.x
 	
 	# Update dotted colour if anything is wrong
 	var dotted_color = Color.RED if not is_player_within or in_risk_items.size() > 0 else Color.GREEN
 	(($Dots.mesh as PlaneMesh).material as ShaderMaterial).set_shader_parameter("line_color", dotted_color)
-
 
 func _on_body_entered(body: Node3D) -> void:
 	if body is Interactable:

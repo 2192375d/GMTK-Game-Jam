@@ -44,8 +44,9 @@ func _load_current_level() -> void:
 	var capture_size: Vector2 = picture_area.get_capture_size()
 	
 	photo_viewport.world_3d = current_level.get_world_3d()
-	photo_viewport.size = Vector2i(capture_size * PHOTO_PIXELS_PER_WORLD_UNIT)
-	photo_camera.size = capture_size.y
+	#photo_viewport.size = Vector2i(capture_size * PHOTO_PIXELS_PER_WORLD_UNIT)
+	print(photo_camera.size, capture_size)
+	#photo_camera.size = capture_size.y # TODO Idk what this was for
 
 func _capture_photo() -> void:
 	var photo_viewport: SubViewport = current_level.photo_viewport

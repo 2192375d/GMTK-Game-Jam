@@ -130,12 +130,13 @@ visible = false
 [node name="3" type="Node3D" parent="Garbage Patterns" unique_id=1464027169]
 visible = false
 
-[node name="PictureArea" type="Area3D" parent="." unique_id=952523899 node_paths=PackedStringArray("capture_shape")]
+[node name="PictureArea" type="Area3D" parent="." unique_id=952523899 node_paths=PackedStringArray("capture_shape", "camera_subview")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7, 0, -7)
 collision_layer = 4
 collision_mask = 26
 script = ExtResource("9_g7tkf")
 capture_shape = NodePath("CollisionShape3D")
+camera_subview = NodePath("../SubViewport")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="PictureArea" unique_id=1845170190]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.633545, -1)
@@ -150,7 +151,7 @@ texture = ExtResource("10_4fww7")
 [node name="SubViewport" type="SubViewport" parent="." unique_id=1435586019]
 
 [node name="Camera3D" type="Camera3D" parent="SubViewport" unique_id=306985259]
-transform = Transform3D(1, 0, 0, 0, 0.7071068, 0.7071068, 0, -0.7071068, 0.7071068, 6.928198, 2.2573242, -7.7282124)
+transform = Transform3D(1, 0, 0, 0, 0.7071068, 0.7071068, 0, -0.7071068, 0.7071068, 7, 4.079, -5.903)
 projection = 1
 fov = 5.0
 size = 6.0

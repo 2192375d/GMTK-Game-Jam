@@ -44,7 +44,7 @@ _data = {
 script = ExtResource("1_uwrxv")
 countdown_label = NodePath("CountdownLayer/CountdownLabel")
 shot_animation = NodePath("CameraFlashLayer/AnimationPlayer")
-photo_preview = NodePath("DebugLayer/VBoxContainer/TextureRect")
+photo_preview = NodePath("DebugLayer/ColorRect/VBoxContainer/TextureRect")
 metadata/_custom_type_script = "uid://b0ty32plikcic"
 
 [node name="CountdownLayer" type="CanvasLayer" parent="." unique_id=1342661617]
@@ -79,32 +79,28 @@ anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = 896.0
-offset_top = 384.0
+offset_top = 359.0
 grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.33333334, 1, 0.5254902, 0.43529412)
 
-[node name="VBoxContainer" type="VBoxContainer" parent="DebugLayer" unique_id=1475123625]
-anchors_preset = -1
-anchor_left = 0.77800006
-anchor_top = 0.59300005
+[node name="VBoxContainer" type="VBoxContainer" parent="DebugLayer/ColorRect" unique_id=1475123625]
+layout_mode = 1
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -0.25604248
-offset_top = -0.2640381
-grow_horizontal = 0
-grow_vertical = 0
+grow_horizontal = 2
+grow_vertical = 2
 
-[node name="Label" type="Label" parent="DebugLayer/VBoxContainer" unique_id=720324843]
+[node name="Label" type="Label" parent="DebugLayer/ColorRect/VBoxContainer" unique_id=720324843]
 layout_mode = 2
 text = "Debug Menu"
 horizontal_alignment = 1
 
-[node name="TextureRect" type="TextureRect" parent="DebugLayer/VBoxContainer" unique_id=1371113650]
-custom_minimum_size = Vector2(240, 180)
+[node name="TextureRect" type="TextureRect" parent="DebugLayer/ColorRect/VBoxContainer" unique_id=1371113650]
+custom_minimum_size = Vector2(256, 256)
+custom_maximum_size = Vector2(256, 256)
 layout_mode = 2
-expand_mode = 1
-stretch_mode = 5
 
 [node name="PauseMenuLayer" type="CanvasLayer" parent="." unique_id=511787114]
 process_mode = 3
